@@ -40,10 +40,7 @@ class ScoreServiceTest {
 //        assertEquals(expected, actual);
 //    }
 
-//    @Test
-//    void add() {
-//        scoreService.add();
-//    }
+
 
 //    @Test
 //    void getScoreById() {

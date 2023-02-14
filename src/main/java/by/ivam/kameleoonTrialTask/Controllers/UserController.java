@@ -1,6 +1,6 @@
 package by.ivam.kameleoonTrialTask.Controllers;
 
-import by.ivam.kameleoonTrialTask.api.request.UserRequest;
+import by.ivam.kameleoonTrialTask.api.request.UserCreateRequest;
 import by.ivam.kameleoonTrialTask.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +14,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping(value = "/users")
-    public ResponseEntity<?> create(@RequestBody UserRequest userRequest) {
+    @PostMapping("/users")
+    public ResponseEntity<?> create(@RequestBody UserCreateRequest userRequest) {
         userService.create(userRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
 }

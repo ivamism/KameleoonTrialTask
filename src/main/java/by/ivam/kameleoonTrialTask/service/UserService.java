@@ -1,6 +1,6 @@
 package by.ivam.kameleoonTrialTask.service;
 
-import by.ivam.kameleoonTrialTask.api.request.UserRequest;
+import by.ivam.kameleoonTrialTask.api.request.UserCreateRequest;
 import by.ivam.kameleoonTrialTask.model.User;
 import by.ivam.kameleoonTrialTask.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class UserService implements UserServiceInterface {
     UserRepository userRepository;
 
     @Override
-    public void create(UserRequest userRequest) {
+    public void create(UserCreateRequest userRequest) {
         User user = new User();
         user.setName(userRequest.getName());
         user.setEmail(userRequest.getEmail());
