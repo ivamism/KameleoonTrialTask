@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/quotes")
 public class QuoteController {
@@ -24,10 +26,11 @@ public class QuoteController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public QuoteResponse getById(@PathVariable long id) {
         return quoteService.findById(id);
     }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public QuoteResponse update(@PathVariable long id, @RequestBody QuoteRequest quoteRequest) {
@@ -37,7 +40,19 @@ public class QuoteController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable long id){
+    public void delete(@PathVariable long id) {
         quoteService.delete(id);
     }
+
+    @GetMapping("/10top")
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuoteResponse> getTop10() {
+        return quoteService.find10top();
+    }
+@GetMapping("/10flop")
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuoteResponse> getFlop10() {
+        return quoteService.find10flop();
+    }
+
 }

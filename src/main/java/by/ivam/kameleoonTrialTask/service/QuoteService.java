@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class QuoteService implements QuoteServiceInterface {
@@ -24,13 +26,7 @@ public class QuoteService implements QuoteServiceInterface {
     @Override
     public QuoteResponse findById(long id) {
         Quote quote = quoteRepository.findById(id).get();
-        QuoteResponse quoteResponse = new QuoteResponse();
-        quoteResponse.setContent(quote.getContent());
-        quoteResponse.setCreateDate(quote.getCreateDate());
-        quoteResponse.setUpdateDate(quote.getUpdateDate());
-        quoteResponse.setUserName(quote.getUser().getName());
-        quoteResponse.setScore(quote.getScore().getScore());
-        return quoteResponse;
+        return quoteResponseCreator(quote);
     }
 
     @Override
@@ -42,15 +38,7 @@ public class QuoteService implements QuoteServiceInterface {
         quote.setUpdateDate(LocalDateTime.now());
         quote.setScore(scoreService.create());
         quoteRepository.save(quote);
-        QuoteResponse quoteResponse = new QuoteResponse();
-        quoteResponse.setId(quote.getId());
-        quoteResponse.setContent(quote.getContent());
-        quoteResponse.setCreateDate(quote.getCreateDate());
-        quoteResponse.setUpdateDate(quote.getUpdateDate());
-        quoteResponse.setUserId(quote.getUser().getId());
-        quoteResponse.setUserName(quote.getUser().getName());
-        quoteResponse.setScore(quote.getScore().getScore());
-        return quoteResponse;
+        return quoteResponseCreator(quote);
     }
 
     @Override
@@ -67,7 +55,29 @@ public class QuoteService implements QuoteServiceInterface {
         quoteRepository.deleteById(id);
     }
 
-    private QuoteResponse quoteResponseCreator(Quote quote){
+    @Override
+    public List<QuoteResponse> find10top() {
+        List<Quote> top10 = quoteRepository.findTop10AllByOrderByScore_ScoreDesc();
+        List<QuoteResponse> topQuotesResponse = new ArrayList<>();
+        for (Quote quote : top10) {
+            QuoteResponse quoteResponse = quoteResponseCreator(quote);
+            topQuotesResponse.add(quoteResponse);
+        }
+        return topQuotesResponse;
+    }
+
+    @Override
+    public List<QuoteResponse> find10flop() {
+        List<Quote> top10 = quoteRepository.findTop10AllByOrderByScore_ScoreAsc();
+        List<QuoteResponse> topQuotesResponse = new ArrayList<>();
+        for (Quote quote : top10) {
+            QuoteResponse quoteResponse = quoteResponseCreator(quote);
+            topQuotesResponse.add(quoteResponse);
+        }
+        return topQuotesResponse;
+    }
+
+    private QuoteResponse quoteResponseCreator(Quote quote) {
         QuoteResponse quoteResponse = new QuoteResponse();
         quoteResponse.setId(quote.getId());
         quoteResponse.setContent(quote.getContent());
@@ -76,6 +86,7 @@ public class QuoteService implements QuoteServiceInterface {
         quoteResponse.setUserId(quote.getUser().getId());
         quoteResponse.setUserName(quote.getUser().getName());
         quoteResponse.setScore(quote.getScore().getScore());
+        quoteResponse.setScoreId(quote.getScore().getId());
         return quoteResponse;
     }
 

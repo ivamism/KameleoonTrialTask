@@ -18,5 +18,6 @@ public class QuoteResponse {
     private LocalDateTime updateDate;
     private long userId;
     private String userName;
+    private long scoreId;
     private int score;
 }
