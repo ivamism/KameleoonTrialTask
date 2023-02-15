@@ -61,6 +61,12 @@ public class QuoteService implements QuoteServiceInterface {
         quoteRepository.save(quote);
         return quoteResponseCreator(quote);
     }
+
+    @Override
+    public void delete(long id) {
+        quoteRepository.deleteById(id);
+    }
+
     private QuoteResponse quoteResponseCreator(Quote quote){
         QuoteResponse quoteResponse = new QuoteResponse();
         quoteResponse.setId(quote.getId());

@@ -14,4 +14,6 @@ public interface QuoteServiceInterface {
     QuoteResponse create(QuoteCreateRequest quoteCreateRequest);
 
     QuoteResponse update (long id, QuoteRequest quoteRequest);
+
+    void delete(long id);
 }

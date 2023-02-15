@@ -34,4 +34,10 @@ public class QuoteController {
 
         return quoteService.update(id, quoteRequest);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable long id){
+        quoteService.delete(id);
+    }
 }
