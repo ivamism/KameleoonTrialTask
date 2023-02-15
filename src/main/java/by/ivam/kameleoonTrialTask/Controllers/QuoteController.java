@@ -3,11 +3,9 @@ package by.ivam.kameleoonTrialTask.Controllers;
 import by.ivam.kameleoonTrialTask.api.request.QuoteCreateRequest;
 import by.ivam.kameleoonTrialTask.api.request.QuoteRequest;
 import by.ivam.kameleoonTrialTask.api.response.QuoteResponse;
-import by.ivam.kameleoonTrialTask.model.Quote;
 import by.ivam.kameleoonTrialTask.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +27,12 @@ public class QuoteController {
     @ResponseStatus(HttpStatus.OK)
     public QuoteResponse getById(@PathVariable long id) {
         return quoteService.findById(id);
+    }
+
+    @GetMapping("/random")
+    @ResponseStatus(HttpStatus.OK)
+    public QuoteResponse getRandomQuote() {
+        return quoteService.getRandomQuote();
     }
 
     @PutMapping("/{id}")

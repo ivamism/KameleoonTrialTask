@@ -4,7 +4,6 @@ import by.ivam.kameleoonTrialTask.api.request.QuoteCreateRequest;
 import by.ivam.kameleoonTrialTask.api.request.QuoteRequest;
 import by.ivam.kameleoonTrialTask.api.response.QuoteResponse;
 import by.ivam.kameleoonTrialTask.model.Quote;
-import by.ivam.kameleoonTrialTask.model.Score;
 import by.ivam.kameleoonTrialTask.repositories.QuoteRepository;
 import by.ivam.kameleoonTrialTask.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class QuoteService implements QuoteServiceInterface {
@@ -27,6 +28,23 @@ public class QuoteService implements QuoteServiceInterface {
     public QuoteResponse findById(long id) {
         Quote quote = quoteRepository.findById(id).get();
         return quoteResponseCreator(quote);
+    }
+
+    @Override
+    public QuoteResponse getRandomQuote() {
+        Quote quote = null;
+        while (true) {
+            Random rndIdGen = new Random();
+            long randomId = rndIdGen.nextInt(quoteRepository.countQuotesQuantity() - 1);
+            Optional<Quote> optionalQuote = quoteRepository.findById(randomId);
+            if (optionalQuote.isPresent()) {
+                quote = optionalQuote.get();
+                break;
+            }
+        }
+        return quoteResponseCreator(quote);
+
+//        return findById(randomId);
     }
 
     @Override
@@ -75,6 +93,11 @@ public class QuoteService implements QuoteServiceInterface {
             topQuotesResponse.add(quoteResponse);
         }
         return topQuotesResponse;
+    }
+
+    @Override
+    public int countQuotesQuantity() {
+        return quoteRepository.countQuotesQuantity();
     }
 
     private QuoteResponse quoteResponseCreator(Quote quote) {
