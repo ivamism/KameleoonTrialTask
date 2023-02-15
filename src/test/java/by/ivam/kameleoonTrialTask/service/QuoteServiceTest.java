@@ -1,7 +1,6 @@
 package by.ivam.kameleoonTrialTask.service;
 
 import by.ivam.kameleoonTrialTask.api.response.QuoteResponse;
-import by.ivam.kameleoonTrialTask.model.Quote;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,5 +17,12 @@ class QuoteServiceTest {
     void find10top() {
         List<QuoteResponse> top10 = quoteService.find10top();
         assertNotNull(top10);
+    }
+
+    @Test
+    void countQuotesQuantity() {
+        int actual = quoteService.countQuotesQuantity();
+        int expected = 23;
+        assertEquals(expected, actual);
     }
 }

@@ -43,8 +43,6 @@ public class QuoteService implements QuoteServiceInterface {
             }
         }
         return quoteResponseCreator(quote);
-
-//        return findById(randomId);
     }
 
     @Override

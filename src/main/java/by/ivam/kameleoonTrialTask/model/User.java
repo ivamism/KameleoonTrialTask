@@ -17,10 +17,10 @@ public class User {
     @Column(name = "id", nullable = false)
     private long id;
 
-    String name;
-    String email;
-    String  password;
-    LocalDateTime creationDate;
+    private String name;
+    private String email;
+    private String password;
+    private LocalDateTime creationDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("Desk")
