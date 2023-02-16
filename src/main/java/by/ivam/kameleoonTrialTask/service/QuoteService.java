@@ -4,6 +4,7 @@ import by.ivam.kameleoonTrialTask.api.request.QuoteCreateRequest;
 import by.ivam.kameleoonTrialTask.api.request.QuoteRequest;
 import by.ivam.kameleoonTrialTask.api.response.QuoteResponse;
 import by.ivam.kameleoonTrialTask.api.response.UserResponse;
+import by.ivam.kameleoonTrialTask.exceptions.MyNoSuchElementException;
 import by.ivam.kameleoonTrialTask.model.Quote;
 import by.ivam.kameleoonTrialTask.model.Score;
 import by.ivam.kameleoonTrialTask.model.User;
@@ -32,9 +33,10 @@ public class QuoteService implements QuoteServiceInterface {
 
     @Override
     public QuoteResponse findById(long id) {
-        Quote quote = quoteRepository.findById(id).get();
+        Quote quote = quoteRepository.findById(id).orElseThrow(() -> new MyNoSuchElementException("The Quote not found"));
         return quoteResponseCreator(quote);
     }
+
 
     @Override
     public QuoteResponse getRandomQuote() {
@@ -106,13 +108,15 @@ public class QuoteService implements QuoteServiceInterface {
 
     @Override
     public UserResponse findQuoteOwner(long id) {
-        User quoteOwner = quoteRepository.findById(id).get().getUser();
+        Quote quote = quoteRepository.findById(id).orElseThrow(() -> new MyNoSuchElementException("The Quote not found"));
+        User quoteOwner = quote.getUser();
         return userService.userResponseCreator(quoteOwner);
     }
 
     @Override
     public Score getQuoterScore(long id) {
-        return quoteRepository.findById(id).get().getScore();
+        Quote quote = quoteRepository.findById(id).orElseThrow(() -> new MyNoSuchElementException("The Quote not found"));
+        return quote.getScore();
     }
 
     private QuoteResponse quoteResponseCreator(Quote quote) {
