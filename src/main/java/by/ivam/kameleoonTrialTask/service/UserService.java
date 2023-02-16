@@ -4,12 +4,14 @@ import by.ivam.kameleoonTrialTask.api.request.UserCreateRequest;
 import by.ivam.kameleoonTrialTask.api.response.UserResponse;
 import by.ivam.kameleoonTrialTask.model.User;
 import by.ivam.kameleoonTrialTask.repositories.UserRepository;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@Data
 public class UserService implements UserServiceInterface {
     @Autowired
     UserRepository userRepository;
@@ -25,7 +27,7 @@ public class UserService implements UserServiceInterface {
         return userResponseCreator(user);
     }
 
-    private UserResponse userResponseCreator(User user) {
+    UserResponse userResponseCreator(User user) {
         UserResponse userResponse = new UserResponse();
         userResponse.setId(user.getId());
         userResponse.setName(user.getName());

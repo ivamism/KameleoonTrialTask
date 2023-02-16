@@ -4,7 +4,6 @@ import by.ivam.kameleoonTrialTask.api.response.ScoreResponse;
 import by.ivam.kameleoonTrialTask.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,23 +14,20 @@ public class ScoreController {
     private ScoreService scoreService;
 
     @PutMapping("/like/{id}")
-    public ResponseEntity<?> like(@PathVariable long id) {
-        scoreService.like(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public ScoreResponse like(@PathVariable long id) {
+        return scoreService.like(id);
     }
 
     @PutMapping("/dislike/{id}")
-    public ResponseEntity<?> disLike(@PathVariable long id) {
-        scoreService.disLike(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public ScoreResponse disLike(@PathVariable long id) {
+        return scoreService.disLike(id);
     }
+
     @GetMapping("/score/{id}")
-    public ResponseEntity<?> getScore(@PathVariable long id) {
-        ScoreResponse scoreResponse = scoreService.getScoreById(id);
-
-        return new ResponseEntity<>(scoreResponse,HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public ScoreResponse getScore(@PathVariable long id) {
+        return scoreService.findById(id);
     }
-
 }

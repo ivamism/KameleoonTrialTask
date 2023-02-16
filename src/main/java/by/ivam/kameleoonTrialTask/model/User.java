@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "customer")
 public class User {
@@ -23,7 +22,6 @@ public class User {
     private LocalDateTime creationDate;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("Desk")
     private List<Quote> quotes = new ArrayList<>();
 
 }
