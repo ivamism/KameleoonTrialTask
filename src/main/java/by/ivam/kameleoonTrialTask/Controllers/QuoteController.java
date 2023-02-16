@@ -3,6 +3,8 @@ package by.ivam.kameleoonTrialTask.Controllers;
 import by.ivam.kameleoonTrialTask.api.request.QuoteCreateRequest;
 import by.ivam.kameleoonTrialTask.api.request.QuoteRequest;
 import by.ivam.kameleoonTrialTask.api.response.QuoteResponse;
+import by.ivam.kameleoonTrialTask.api.response.UserResponse;
+import by.ivam.kameleoonTrialTask.model.Score;
 import by.ivam.kameleoonTrialTask.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,10 +55,23 @@ public class QuoteController {
     public List<QuoteResponse> getTop10() {
         return quoteService.find10top();
     }
-@GetMapping("/10flop")
+
+    @GetMapping("/10flop")
     @ResponseStatus(HttpStatus.OK)
     public List<QuoteResponse> getFlop10() {
         return quoteService.find10flop();
+    }
+
+    @GetMapping("/owner/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponse findOwner(@PathVariable long id) {
+        return quoteService.findQuoteOwner(id);
+    }
+
+    @GetMapping("/score/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Score getScore(@PathVariable long id) {
+        return quoteService.getQuoterScore(id);
     }
 
 }

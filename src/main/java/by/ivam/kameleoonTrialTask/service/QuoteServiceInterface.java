@@ -3,6 +3,8 @@ package by.ivam.kameleoonTrialTask.service;
 import by.ivam.kameleoonTrialTask.api.request.QuoteCreateRequest;
 import by.ivam.kameleoonTrialTask.api.request.QuoteRequest;
 import by.ivam.kameleoonTrialTask.api.response.QuoteResponse;
+import by.ivam.kameleoonTrialTask.api.response.UserResponse;
+import by.ivam.kameleoonTrialTask.model.Score;
 
 import java.util.List;
 
@@ -19,4 +21,8 @@ public interface QuoteServiceInterface {
     List<QuoteResponse> find10top ();
     List<QuoteResponse> find10flop ();
     int countQuotesQuantity();
+
+    UserResponse findQuoteOwner(long id);
+
+    Score getQuoterScore (long id);
 }

@@ -3,7 +3,10 @@ package by.ivam.kameleoonTrialTask.service;
 import by.ivam.kameleoonTrialTask.api.request.QuoteCreateRequest;
 import by.ivam.kameleoonTrialTask.api.request.QuoteRequest;
 import by.ivam.kameleoonTrialTask.api.response.QuoteResponse;
+import by.ivam.kameleoonTrialTask.api.response.UserResponse;
 import by.ivam.kameleoonTrialTask.model.Quote;
+import by.ivam.kameleoonTrialTask.model.Score;
+import by.ivam.kameleoonTrialTask.model.User;
 import by.ivam.kameleoonTrialTask.repositories.QuoteRepository;
 import by.ivam.kameleoonTrialTask.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class QuoteService implements QuoteServiceInterface {
     @Autowired
     private ScoreService scoreService;
 
+    @Autowired
+    UserService userService;
+
     @Override
     public QuoteResponse findById(long id) {
         Quote quote = quoteRepository.findById(id).get();
@@ -32,7 +38,7 @@ public class QuoteService implements QuoteServiceInterface {
 
     @Override
     public QuoteResponse getRandomQuote() {
-        Quote quote = null;
+        Quote quote;
         while (true) {
             Random rndIdGen = new Random();
             long randomId = rndIdGen.nextInt(quoteRepository.countQuotesQuantity() - 1);
@@ -98,18 +104,25 @@ public class QuoteService implements QuoteServiceInterface {
         return quoteRepository.countQuotesQuantity();
     }
 
+    @Override
+    public UserResponse findQuoteOwner(long id) {
+        User quoteOwner = quoteRepository.findById(id).get().getUser();
+        return userService.userResponseCreator(quoteOwner);
+    }
+
+    @Override
+    public Score getQuoterScore(long id) {
+        return quoteRepository.findById(id).get().getScore();
+    }
+
     private QuoteResponse quoteResponseCreator(Quote quote) {
         QuoteResponse quoteResponse = new QuoteResponse();
         quoteResponse.setId(quote.getId());
         quoteResponse.setContent(quote.getContent());
         quoteResponse.setCreateDate(quote.getCreateDate());
         quoteResponse.setUpdateDate(quote.getUpdateDate());
-        quoteResponse.setUserId(quote.getUser().getId());
         quoteResponse.setUserName(quote.getUser().getName());
         quoteResponse.setScore(quote.getScore().getScore());
-        quoteResponse.setScoreId(quote.getScore().getId());
         return quoteResponse;
     }
-
-
 }
