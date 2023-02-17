@@ -9,8 +9,8 @@ public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int goodVotes;
-    private int badVotes;
+    private int likeVotes;
+    private int disLikeVotes;
     private int score;
 
 }

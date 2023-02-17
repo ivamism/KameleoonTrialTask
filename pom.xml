@@ -55,6 +55,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+<!--					<imageName>kameleontt/spring-boot-docker:spring-plugin</imageName>-->
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

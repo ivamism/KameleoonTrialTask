@@ -1,11 +1,11 @@
 package by.ivam.kameleoonTrialTask.Controllers;
 
 import by.ivam.kameleoonTrialTask.api.request.QuoteCreateRequest;
-import by.ivam.kameleoonTrialTask.api.request.QuoteRequest;
+import by.ivam.kameleoonTrialTask.api.request.UpdateQuoteRequest;
 import by.ivam.kameleoonTrialTask.api.response.QuoteResponse;
 import by.ivam.kameleoonTrialTask.api.response.UserResponse;
 import by.ivam.kameleoonTrialTask.model.Score;
-import by.ivam.kameleoonTrialTask.service.QuoteService;
+import by.ivam.kameleoonTrialTask.service.QuoteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,7 @@ import java.util.List;
 public class QuoteController {
 
     @Autowired
-    private QuoteService quoteService;
+    private QuoteServiceImpl quoteService;
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
@@ -39,8 +39,7 @@ public class QuoteController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public QuoteResponse update(@PathVariable long id, @RequestBody QuoteRequest quoteRequest) {
-
+    public QuoteResponse update(@PathVariable long id, @RequestBody UpdateQuoteRequest quoteRequest) {
         return quoteService.update(id, quoteRequest);
     }
 
@@ -50,28 +49,28 @@ public class QuoteController {
         quoteService.delete(id);
     }
 
-    @GetMapping("/10top")
+    @GetMapping("/top10")
     @ResponseStatus(HttpStatus.OK)
     public List<QuoteResponse> getTop10() {
         return quoteService.find10top();
     }
 
-    @GetMapping("/10flop")
+    @GetMapping("/flop10")
     @ResponseStatus(HttpStatus.OK)
     public List<QuoteResponse> getFlop10() {
         return quoteService.find10flop();
     }
 
-    @GetMapping("/owner/{id}")
+    @GetMapping("/quoteOwner/{quoteId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse findOwner(@PathVariable long id) {
-        return quoteService.findQuoteOwner(id);
+    public UserResponse findQuoteOwner(@PathVariable long quoteId) {
+        return quoteService.findQuoteOwner(quoteId);
     }
 
-    @GetMapping("/score/{id}")
+    @GetMapping("/quoteScore/{scoreId}")
     @ResponseStatus(HttpStatus.OK)
-    public Score getScore(@PathVariable long id) {
-        return quoteService.getQuoterScore(id);
+    public Score getQuoteScore(@PathVariable long scoreId) {
+        return quoteService.getQuoterScore(scoreId);
     }
 
 }

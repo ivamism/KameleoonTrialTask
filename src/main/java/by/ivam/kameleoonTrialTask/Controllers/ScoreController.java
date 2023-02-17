@@ -1,7 +1,7 @@
 package by.ivam.kameleoonTrialTask.Controllers;
 
 import by.ivam.kameleoonTrialTask.api.response.ScoreResponse;
-import by.ivam.kameleoonTrialTask.service.ScoreService;
+import by.ivam.kameleoonTrialTask.service.ScoreServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,23 +11,23 @@ import org.springframework.web.bind.annotation.*;
 public class ScoreController {
 
     @Autowired
-    private ScoreService scoreService;
+    private ScoreServiceImpl scoreService;
 
-    @PutMapping("/like/{id}")
+    @PutMapping("/like/{scoreId}")
     @ResponseStatus(HttpStatus.OK)
-    public ScoreResponse like(@PathVariable long id) {
-        return scoreService.like(id);
+    public ScoreResponse like(@PathVariable long scoreId) {
+        return scoreService.like(scoreId);
     }
 
-    @PutMapping("/dislike/{id}")
+    @PutMapping("/dislike/{scoreId}")
     @ResponseStatus(HttpStatus.OK)
-    public ScoreResponse disLike(@PathVariable long id) {
-        return scoreService.disLike(id);
+    public ScoreResponse disLike(@PathVariable long scoreId) {
+        return scoreService.disLike(scoreId);
     }
 
-    @GetMapping("/score/{id}")
+    @GetMapping("/score/{scoreId}")
     @ResponseStatus(HttpStatus.OK)
-    public ScoreResponse getScore(@PathVariable long id) {
-        return scoreService.findById(id);
+    public ScoreResponse getScore(@PathVariable long scoreId) {
+        return scoreService.findById(scoreId);
     }
 }

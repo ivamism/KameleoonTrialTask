@@ -10,10 +10,9 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
     List<Quote> findTop10AllByOrderByScore_ScoreDesc();
     List<Quote> findTop10AllByOrderByScore_ScoreAsc();
 
-       @Query("select count(q) from Quote q")
-       int countQuotesQuantity();
-
-
-
+       @Query("select MAX (q.id) from Quote q")
+       int lastUsedId();
+    @Query("select count(q) from Quote q")
+    int countQuotesQuantity();
 
 }

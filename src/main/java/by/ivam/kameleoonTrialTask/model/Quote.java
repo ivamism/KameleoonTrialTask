@@ -1,22 +1,20 @@
 package by.ivam.kameleoonTrialTask.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Setter
-@ToString
+
+@Data
 @Entity
 public class Quote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String content;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
-
+    private LocalDateTime creationDate;
+    private LocalDateTime modificationDate;
 
     @ManyToOne
     @JoinColumn(name = "users_id")
@@ -26,28 +24,4 @@ public class Quote {
     @JoinColumn(name = "score_id")
     private Score score;
 
-    @JsonIgnore
-    public User getUser() {
-        return user;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public LocalDateTime getUpdateDate() {
-        return updateDate;
-    }
-
-    public Score getScore() {
-        return score;
-    }
 }

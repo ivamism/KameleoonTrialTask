@@ -2,7 +2,7 @@ package by.ivam.kameleoonTrialTask.Controllers;
 
 import by.ivam.kameleoonTrialTask.api.request.UserCreateRequest;
 import by.ivam.kameleoonTrialTask.api.response.UserResponse;
-import by.ivam.kameleoonTrialTask.service.UserService;
+import by.ivam.kameleoonTrialTask.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)

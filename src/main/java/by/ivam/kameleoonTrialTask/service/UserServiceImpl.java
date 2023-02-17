@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Service
 @Data
-public class UserService implements UserServiceInterface {
+public class UserServiceImpl implements UserServiceInterface {
     @Autowired
     UserRepository userRepository;
 
