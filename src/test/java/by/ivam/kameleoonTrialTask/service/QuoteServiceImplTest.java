@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class QuoteServiceImplTest {
     @Autowired
     QuoteServiceImpl quoteService;
 
-//    @MockBean
-//    private QuoteRepository quoteRepositoryTest;
+
 
 
     @Test
@@ -34,17 +34,11 @@ class QuoteServiceImplTest {
     @Test
     void delete() {
         QuoteNotFoundException exception = assertThrows(QuoteNotFoundException.class, () -> {
-            quoteService.delete(150);});
+            quoteService.delete(150);
+        });
 
         assertEquals("The Quote not found", exception.getMessage());
     }
 
-//    @Test
-//    void getRandomQuote() {
-//        QuoteNotFoundException exception = assertThrows(QuoteNotFoundException.class, () -> {
-//            quoteRepositoryTest.countQuotesQuantity();});
-//
-//        assertEquals("No any quotes to display", exception.getMessage());
-//    }
 
 }

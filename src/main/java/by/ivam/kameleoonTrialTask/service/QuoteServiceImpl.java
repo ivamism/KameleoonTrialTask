@@ -41,18 +41,17 @@ public class QuoteServiceImpl implements QuoteService {
     @Override
     public QuoteResponse getRandomQuote() {
         Quote quote;
-//  TODO realize verification of Quote Table not Empty
-        if (quoteRepository.countQuotesQuantity() == 0){
+        if (quoteRepository.countQuotesQuantity() == 0) {
             throw new QuoteNotFoundException("No any quotes to display");
-        }
-
-        while (true) {
-            Random rndIdGen = new Random();
-            long randomId = rndIdGen.nextInt(quoteRepository.lastUsedId());
-            Optional<Quote> optionalQuote = quoteRepository.findById(randomId);
-            if (optionalQuote.isPresent()) {
-                quote = optionalQuote.get();
-                break;
+        } else {
+            while (true) {
+                Random rndIdGen = new Random();
+                long randomId = rndIdGen.nextInt(quoteRepository.lastUsedId());
+                Optional<Quote> optionalQuote = quoteRepository.findById(randomId);
+                if (optionalQuote.isPresent()) {
+                    quote = optionalQuote.get();
+                    break;
+                }
             }
         }
         return quoteResponseCreator(quote);
@@ -105,11 +104,6 @@ public class QuoteServiceImpl implements QuoteService {
                 .map(quote -> quoteResponseCreator(quote))
                 .collect(Collectors.toList());
     }
-
-//    @Override
-//    public int countQuotesQuantity() {
-//        return quoteRepository.lastUsedId();
-//    }
 
     @Override
     public UserResponse findQuoteOwner(long id) {
