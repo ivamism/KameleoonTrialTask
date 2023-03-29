@@ -1,6 +1,9 @@
-# Rest API Application
-## Trial Task for Kameleoon (OOO Камелеон)
-## Technology Stack:
+# The Quote Service
+
+## Rest API Application
+
+### Trial Task for Kameleoon (OOO Камелеон)
+### Technology Stack:
 - Java 17
 - Spring Boot
 - Spring Data JPA
